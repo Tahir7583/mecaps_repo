@@ -5,7 +5,7 @@ from .models import Skill
 
 # Create your views here.
 
-class skill_data(APIView):
+class skill_data(APIView): # class based vews
     def get (self,request,pk=None,format=None):
 
         data=Skill.objects.all()
