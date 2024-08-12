@@ -12,7 +12,7 @@ class applicant_data(APIView):   # handle http request
      return Response (serializer.data) # resturn data using respone to display
     
 
-    def post(self,request,format=None):  # post request handle
+    def post(self,request):  # post request handle
         obj=request.data  #  get data from user request
         serializer=Applicantserializer(data=obj) # paas data into serializer to validate and save into queryset
         if serializer. is_valid(): # if valid code than save
