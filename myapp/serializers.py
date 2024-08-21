@@ -11,3 +11,12 @@ class Applicantserializer(serializers.ModelSerializer):
     class Meta :
         model=applicant
         fields='__all__'
+
+# class User_Ragister_serializer(serializers.ModelSerializer):
+#     class Meta:
+#         model=userRagister
+#         fields='__all__'
+
+
+
+                

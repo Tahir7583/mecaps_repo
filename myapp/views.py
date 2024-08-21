@@ -1,7 +1,11 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import viewsets
 from .serializers import Skillserializer,Applicantserializer
 from .models import applicant,Skill
+
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 
 
@@ -39,32 +43,68 @@ class applicant_data(APIView):   # handle http request
 
 
 
-class skill_data (APIView): # skilldata class inheri karega apiVews se apiview handle karta he http request 
-    def get (self,request,pk=None,format=None):
+# class skill_data (APIView): # skilldata class inheri karega apiVews se apiview handle karta he http request 
+#     def get (self,request,pk=None,format=None):
 
-        data=Skill.objects.all()
-        serializer=Skillserializer(data,many=True)
-        return Response (serializer.data)
+#         data=Skill.objects.all()
+#         serializer=Skillserializer(data,many=True)
+#         return Response (serializer.data)
 
-    def post(self,request):
-        data=request.data 
-        serializer=Skillserializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response ('data add successfully')
-        return Response ('data invalid')
+#     def post(self,request):
+#         data=request.data 
+#         serializer=Skillserializer(data=data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response ('data add successfully')
+#         return Response ('data invalid')
     
-    def put(self,request,pk=None):
-        jsondata=request.data 
-        queryset=Skill.objects.get(id=pk)
-        serializer=Skillserializer(data=jsondata,instance=queryset)
-        if serializer.is_valid():
-            serializer.save()
-            return Response ('data updated successfully')
+#     def put(self,request,pk=None):
+#         jsondata=request.data 
+#         queryset=Skill.objects.get(id=pk)
+#         serializer=Skillserializer(data=jsondata,instance=queryset)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response ('data updated successfully')
         
-        return Response ('data not a vlid')
+#         return Response ('data not a vlid')
     
-    def delete(self,request,pk=None):
-        data=Skill.objects.get(id=pk)
-        data.delete()
-        return Response ('data delete successfully')
+#     def delete(self,request,pk=None):
+#         data=Skill.objects.get(id=pk)
+#         data.delete()
+#         return Response ('data delete successfully')
+
+
+
+
+                    # Basic Authentication
+
+class skillView(viewsets.ModelViewSet):       
+    queryset = Skill.objects.all()
+    serializer_class = Skillserializer
+    authentication_classes=[BasicAuthentication]    # all user login which using corect user and password
+    permission_classes=[IsAuthenticated]    # only accessible person login 
+
+
+
+
+
+
+# class userRagister(APIView):
+#     def post(self,request):
+#         json_data=request.data
+#         serializer= User_Ragister_serializer(data=json_data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response('User Registration Successful')
+#         return Response('Invalid Data')
+    
+#     def get(self,request):
+
+
+
+
+
+
+
+    
+

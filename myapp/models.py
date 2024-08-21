@@ -30,4 +30,13 @@ class applicant(models.Model):
 class Skill (models.Model):
     name=models.CharField(max_length=100)
     applicant_ids=models.ManyToManyField(applicant,related_name='skills')
+
+
+# class userRagister(models.Model):
+#     email=models.EmailField(unique=True)
+#     password=models.CharField(max_length=100)
+    
+                              
+
+
     
