@@ -4,12 +4,22 @@ from rest_framework import viewsets
 from .serializers import Skillserializer,Applicantserializer
 from .models import applicant,Skill
 
-from rest_framework.authentication import BasicAuthentication
+# from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 
-class applicant_data(APIView):   # handle http request
+
+class applicant_data(APIView): 
+    authentication_classes=[JWTAuthentication]    # all user login which using corect user and password
+    permission_classes=[IsAuthenticated] 
+    
+    
+    
+    
+    
+      # handle http request
     def get(self,request,pk=None,format=None):  # handle get request
      obj=applicant.objects.all()   # fetch all data from database
      serializer=Applicantserializer(obj,many=True) #convert queryset to json using serializer
@@ -78,11 +88,11 @@ class applicant_data(APIView):   # handle http request
 
                     # Basic Authentication
 
-class skillView(viewsets.ModelViewSet):       
-    queryset = Skill.objects.all()
-    serializer_class = Skillserializer
-    authentication_classes=[BasicAuthentication]    # all user login which using corect user and password
-    permission_classes=[IsAuthenticated]    # only accessible person login 
+# class skillView(APIView):       
+#     # queryset = Skill.objects.all()
+#     serializer_class = Skillserializer
+#     authentication_classes=[JWTAuthentication]    # all user login which using corect user and password
+#     permission_classes=[IsAuthenticated]    # only accessible person login 
 
 
 
